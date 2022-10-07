@@ -1,0 +1,56 @@
+<html>
+  <head>   
+      <link rel="stylesheet" href="css/vegas-style.css"/>
+      <link rel="stylesheet" href="vegas/vegas.css"/>
+
+      <script src="js/jquery.js"></script>
+      <script src="vegas/vegas.js"></script>
+
+      <script>
+        $(document).ready( function() {
+        ///array to place url's from server
+        let mySlides = []
+
+          /// load images en text for slides from server
+          $.ajax({
+            url: "http://localhost/educom-jquery-basis/img-links.js",
+            methode: "GET",/// get data
+            dataType: "json", /// format type data
+            success: function(data){
+              console.log("Data:") 
+              console.log(data)
+              mySlides = data /// set url data to myslides
+            }
+          })
+          
+          
+         /// first click the button otherwise vegas is loaded before the url's from the server and this causes a error 
+          $("#btn").click(function(){
+            ///display images as slides
+            $("#background-image").vegas({
+              overlay: 'vegas/overlays/02.png',
+              slides: mySlides,
+              walk: function(index, slideSettings){
+                $(".text-block h1").html(mySlides[index].title)
+                $(".text-block h4").html(mySlides[index].subtitle)
+                console.log( "Slide index"+ index ) 
+              }
+            })
+        })
+        })    
+      </script>
+  </head>
+
+  <body>
+    <!--Button to start slides-->
+    <div id="btn" class="button">Click me to start slides!</div>
+    <div id="background-image">
+        
+            <div class="text-block">
+                <h1></h1>
+                <h4></h4>
+            </div>
+        
+    </div>     
+  </body>
+</html>
