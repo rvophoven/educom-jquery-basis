@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>   
+    <link rel="stylesheet" href="css/style.css"/>
+    <script src="js/jquery.js"></script>
+    <script>
+      $(document).ready( function() {
+        $("#save").click(function() {
+          /// get data from form
+          const data = {
+            id: $("#id").val(),
+            name: $("#name").val().toUpperCase(),
+            city: $("#city").val()
+          }
+       
+          /// send data to server
+          $.ajax({
+            url: "https://api.dev-master.ninja/js/form",
+            methode: "POST", 
+            data2: data,
+            success: function(data2){
+
+              console.log("Data send to server:")
+              console.log(data)/// data send to server
+              console.log("Data recieved from server:")
+              console.log(data2)/// data recieved from server
+              /// input data recieved in form
+              $("#name").val(data2.form_data.name)
+              $("#date").val(data2.date)
+              ///!! form_data send back is a empty array?
+            }
+          })
+
+        })
+       
+        })       
+    </script>
+  </head>
+  <body>
+    <!--build form--> 
+   <form id="form">
+    <input type="text" name="id" id="id" value="1234"><br>
+    Name: <input type="text" id="name"><br>
+    City: <input type="text" id="city"><br>
+    Date: <input type="text" disabled id="date"><br>
+   </form>
+   <button id="save">Save</button>
+
+  </body>
+</html>
