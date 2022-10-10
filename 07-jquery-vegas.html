@@ -11,7 +11,7 @@
         ///array to place url's from server
         let mySlides = []
      
-          /// load images en text for slides from server
+          /// load images en text for slides from server 
           $.ajax({
             url: "http://localhost/educom-jquery-basis/img-links.js",
             method: "GET",/// get data
@@ -19,7 +19,7 @@
             success: function(data){
               console.log("Data:") 
               console.log(data)
-              start(data)/// call start now that the urls are loaded and set urls data to myslides
+              start(data)/// call function start now that the urls are loaded and set urls data to myslides
             }
           })
           
