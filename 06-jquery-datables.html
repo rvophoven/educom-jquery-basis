@@ -1,0 +1,122 @@
+<html>
+  <head>   
+    <title>It's a datatable!</title>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/>
+    <script src="js/jquery.js"></script>
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+    <script>
+      $(document).ready( function() {
+
+      ///get data table
+       const dTable = $("#theBeatles").DataTable({
+        ajax : "https://api.dev-master.ninja/js/beatles",
+        columns: [
+        { data: "id"},
+        { data: "firstname" }, 
+        { data: "lastname"},                        
+        { data: "dateOfBirth"},
+        { data: "email" }
+        ]
+       })
+
+      /// reload table
+       setInterval(function(){
+        dTable.ajax.reload()
+       },10000)
+
+       /// at click send data to server
+       $("#save").click(function() {
+
+        const data2 = {
+          firstname: $("#firstname").val(),
+          lastname: $("#lastname").val(), 
+          email: $("#email").val()
+          }
+        ///show data send
+        console.log(data2) 
+       
+        /// send to server
+        $.ajax({
+            url: "https://api.dev-master.ninja/js/person/save",
+            methode: "POST",
+            dataType: "json", 
+            data: data2,
+            success: function(data){
+              console.log("Data recieved:") 
+              console.log(data) 
+              ///{"id":1761,"firstname":"No","lastname":"Body","email":"no@body.com","phone":"","dateOfBirth":null,"img":""} 
+            }
+          })
+          
+          /* test code
+          const test = {id: null, firstname:"test",lastname:"test",email:"no@body.com",phone: ":",dateOfBirth:null, img:""}
+          console.log(test) 
+          $.ajax({
+            dataType: "json",
+            url: "https://api.dev-master.ninja/js/person/save",
+            methode: "POST", 
+            data: test,
+            success: function(recieve){
+              console.log("Data recieved2:") 
+              console.log(recieve.id) 
+              console.log(recieve) 
+              /// 
+            }
+          })
+          */
+          
+       })
+
+      }) 
+    </script>
+  </head>
+
+  <body>
+    <!--Build form-->
+      <form id="form">
+      Firstame: <input type="text" id="firstname"><br>
+      Lastname: <input type="text" id="lastname"><br>
+      Email:    <input type="text" id="email"><br>
+     </form>
+     <button id="save">Save</button><br>
+
+    <!--Build table-->
+    <table id="theBeatles" class="display nowrap dataTable dtr-inline collapsed">
+      <thead>
+        <th>ID</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Date of Birth</th>
+        <th>Email</th>
+      </thead>
+
+      <tbody>
+        <!-- Static table
+         <tr>
+              <td>John Lennon</td>
+              <td>john@thebeatles.co.uk</td>
+              <td>Guitar / Vocals</td>
+          </tr>
+          <tr>
+              <td>George Harrison</td>
+              <td>george@thebeatles.co.uk</td>
+              <td>Guitar / Vocals</td>
+          </tr>
+          <tr>
+              <td>Paul McCartney</td>
+              <td>paul@thebeatles.co.uk</td>
+              <td>Bass / Vocals</td>
+          </tr>
+          <tr>
+              <td>Ringo Starr</td>
+              <td>ringo@thebeatles.co.uk</td>
+              <td>Drums / Vocals</td>
+          </tr>
+        -->
+      </tbody>
+    </table>
+
+  </body>
+</html>
