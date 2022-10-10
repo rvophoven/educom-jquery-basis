@@ -40,35 +40,15 @@
         /// send to server
         $.ajax({
             url: "https://api.dev-master.ninja/js/person/save",
-            methode: "POST",
+            method: "POST",
             dataType: "json", 
             data: data2,
             success: function(data){
               console.log("Data recieved:") 
-              console.log(data) 
-              ///{"id":1761,"firstname":"No","lastname":"Body","email":"no@body.com","phone":"","dateOfBirth":null,"img":""} 
+              console.log(data)         
             }
-          })
-          
-          /* test code
-          const test = {id: null, firstname:"test",lastname:"test",email:"no@body.com",phone: ":",dateOfBirth:null, img:""}
-          console.log(test) 
-          $.ajax({
-            dataType: "json",
-            url: "https://api.dev-master.ninja/js/person/save",
-            methode: "POST", 
-            data: test,
-            success: function(recieve){
-              console.log("Data recieved2:") 
-              console.log(recieve.id) 
-              console.log(recieve) 
-              /// 
-            }
-          })
-          */
-          
+          })              
        })
-
       }) 
     </script>
   </head>
