@@ -10,22 +10,21 @@
         $(document).ready( function() {
         ///array to place url's from server
         let mySlides = []
-
+     
           /// load images en text for slides from server
           $.ajax({
             url: "http://localhost/educom-jquery-basis/img-links.js",
-            methode: "GET",/// get data
+            method: "GET",/// get data
             dataType: "json", /// format type data
             success: function(data){
               console.log("Data:") 
               console.log(data)
-              mySlides = data /// set url data to myslides
+              start(data)/// call start now that the urls are loaded and set urls data to myslides
             }
           })
           
-          
-         /// first click the button otherwise vegas is loaded before the url's from the server and this causes a error 
-          $("#btn").click(function(){
+         /// function start to wait till url are loaded from server
+         function start(mySlides){
             ///display images as slides
             $("#background-image").vegas({
               overlay: 'vegas/overlays/02.png',
@@ -36,14 +35,13 @@
                 console.log( "Slide index"+ index ) 
               }
             })
-        })
-        })    
+         }
+        }) 
       </script>
   </head>
 
   <body>
-    <!--Button to start slides-->
-    <div id="btn" class="button">Click me to start slides!</div>
+    <!--set background for slides-->
     <div id="background-image">
         
             <div class="text-block">
